@@ -1,0 +1,4 @@
+- Kiểm tra xem một User có phải là Admin hay không (trả về true/false) -> Predicate: kiểm tra điều kiện
+- Chuyển đổi một đối tượng User thành một chuỗi String chứa thông tin username -> Function: Biến đổi dữ liệu
+- In thông tin chi tiết của User ra màn hình Console -> Consumer: In ra dữ liệu
+- Khởi tạo một đối tượng User mới với các giá trị mặc định -> Supplier: Khởi tạo dữ liệu
