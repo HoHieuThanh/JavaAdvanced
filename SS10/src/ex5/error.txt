@@ -1,0 +1,5 @@
+ Nhập trùng mã bác sĩ (Primary Key)
+ Nhập chuyên khoa quá dài
+ Nhập rỗng hoặc null
+ Nhập sai kiểu
+ Lỗi kết nối DB
