@@ -1,0 +1,27 @@
+1. Phân tích bài toán (I/O)
+Input:
+maBenhNhan (int): mã bệnh nhân
+tienVienPhi (double): số tiền cần thanh toán
+
+Output:
+Thành công:
+Xuất viện và thanh toán thành công
+Thất bại:
+Lỗi: <chi tiết lỗi>
+
+2. Đề xuất giải pháp
+Dùng conn.setAutoCommit(false); -> Gom 3 thao tác thành 1 transaction
+Dùng: commit() / rollback() -> Nếu có lỗi:
+Bẫy 1: Thiếu tiền → throw Exception → rollback
+Bẫy 2: update = 0 → throw Exception → rollback
+
+3. Các bước xử lý
+Mở kết nối
+Tắt auto-commit
+Kiểm tra số dư
+Trừ tiền
+Cập nhật giường
+Cập nhật bệnh nhân
+Nếu OK -> commit
+Nếu lỗi -> rollback
+Đóng kết nối

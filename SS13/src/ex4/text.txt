@@ -1,0 +1,49 @@
+1. Phân tích Input / Output
+
+Input:
+Không có tham số (hoặc theo ngày/khoa)
+Lấy toàn bộ bệnh nhân + dịch vụ
+
+Output:
+List<BenhNhanDTO>
+Mỗi DTO gồm:
+BenhNhanDTO {
+    int id;
+    String name;
+    List<DichVu> dsDichVu;
+}
+
+2. Đề xuất 2 giải pháp
+- GP1: N+1 Query
+SELECT * FROM BenhNhan;
+FOR mỗi bệnh nhân:
+    SELECT * FROM DichVuSuDung WHERE maBenhNhan = ?
+-> 500 bệnh nhân -> 501 query
+
+- GP2: JOIN
+SELECT b.id, b.name, d.id as dv_id, d.name as dv_name
+FROM BenhNhan b
+LEFT JOIN DichVuSuDung d ON b.id = d.maBenhNhan
+-> Chỉ 1 query duy nhất
+
+3. So sánh
+Tiêu chí	    N+1 Query	    JOIN
+Số query	    500+	        1
+Hiệu năng	    Rất chậm	    Rất nhanh
+RAM xử lý	    Ít	            Nhiều hơn
+Độ khó code	    Dễ	            Trung bình
+
+Chốt chọn JOIN + map vì giảm cực mạnh số lần truy vấn DB -> đạt < 1s
+
+4. Thiết kế xử lý
+* Ý tưởng
+Dùng Map<id, BenhNhanDTO>
+Duyệt từng dòng ResultSet
+Gom dữ liệu lại
+
+* Luồng
+Query JOIN
+Loop ResultSet
+Nếu chưa có bệnh nhân → tạo mới
+Nếu có dịch vụ -> add vào list
+Trả về list
